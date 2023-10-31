@@ -39,8 +39,16 @@ func (s *StressRequests) defaultGETRequest(url string, threadNumber int, package
 		client.Transport = tr
 	}
 
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		panic(err)
+	}
+
+	// Set User-Agent to mimic browser
+	req.Header.Set("User-Agent", giveRandomUserAgentString())
+
 	// Create and execute the GET request
-	resp, err := client.Get(url)
+	resp, err := client.Do(req)
 	if err != nil {
 		log.Printf("package with thread %d and seq %d: %v", threadNumber, packageNumber, err)
 	} else {
