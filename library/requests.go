@@ -4,6 +4,7 @@ import (
 	"crypto/tls"
 	"log"
 	"net/http"
+	"os"
 )
 
 type StressRequests struct {
@@ -14,11 +15,13 @@ type StressRequests struct {
 func (s *StressRequests) Execute(threadNumber int, packageNumber int) {
 	switch s.Mode {
 	case "wordpress":
-		log.Println("WP")
+		log.Println("WP later (WIP)")
+		os.Exit(1)
 	case "normal":
 		s.defaultGETRequest(s.URL, threadNumber, packageNumber)
 	default:
 		log.Println("Not supported")
+		os.Exit(1)
 	}
 }
 
